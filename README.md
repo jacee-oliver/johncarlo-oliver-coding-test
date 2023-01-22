@@ -4,33 +4,6 @@
     <h3 align="center">Backend Developer coding test</h3>
 </div>
 
-<!-- TABLE OF CONTENTS -->
-<details>
-  <summary>Table of Contents</summary>
-  <ol>
-    <li>
-      <a href="#about-the-test">About the test</a>
-    </li>
-    <li>
-      <a href="#requirements">Requirements</a>
-      <ul>
-        <li><a href="#product-specifications">Product specifications</a></li>
-        <li><a href="#api-requirements">API Requirements</a></li>
-      </ul>
-    </li>
-    <li>
-      <a href="#getting-started">Getting started</a>
-      <ul>
-        <li><a href="#prerequisites">Prerequisites</a></li>
-        <li><a href="#installation">Installation</a></li>
-      </ul>
-    </li>
-    <li>
-      <a href="#bonus-points">Bonus points</a>
-    </li>
-  </ol>
-</details>
-
 <!-- ABOUT THE TEST -->
 ## About the test
 
@@ -72,49 +45,94 @@ Others:
 * You are free to use any library or component just as long as it can be installed using Composer.
 * Don't forget to provide instructions on how to set the application up.
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+#### Q: The management requested a new feature where in the fictional e-commerce app must have a "featured products" section. How would you go about implementing this feature in the backend?
 
-<!-- GETTING STARTED -->
-## Getting Started
+A: First is to plan the changes on the database structure, add another column on products table. The new column can be boolean and named ```is_featured```. Then add a new method on the product controller that will catch the frontend actions
+that will update the specific resource on the database.
 
-### Prerequisites
+## Applicant Information
 
-* Git
-* Composer
-* PHP ^8.0.2
-* MySQL
+### JOHN CARLO OLIVER
 
-### Installation
+## DESCRIPTION
+Created a REST API using Laravel Sanctum for User Registration and Login,
+and Product Creation, Listing, Viewing, Updating, and Deleting.
 
-#### Automatically generate a new repository
-Click <a href="https://github.com/QualityTrade/backend-dev-coding-test/generate" target="_blank">here</a> to generate a new repository from this template.
+**POST /api/register**
 
-* Select your GitHub username as the owner.
-* Name the repository `{FIRST NAME}-{LAST NAME}-coding-test`. (e.g. `john-doe-coding-test`)
-* Make sure to set the repository visibility to Public.
-* Clone your generated repository.
+*Params:*
+```
+name, email, password, confirm_password
+```
 
-#### Manual
-If automatically generating a new repository does not work, follow these steps instead.
+*Return:*
+```
+- SUCCESS: User register successfully.
+- ERROR: field_name required.
+- ERROR: Invalid email format.
+- ERROR: Password doesn't match.
+```
 
-* Click <a href="https://github.com/QualityTrade/backend-dev-coding-test/archive/refs/heads/main.zip">here</a> to download the ZIP archive of the test.
-* Create a new repository named `{FIRST NAME}-{LAST NAME}-coding-test`. (e.g. `john-doe-coding-test`)
-* Push your code to the new repository.
+**POST /api/login**
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+*Params:*
+```
+email, password
+```
 
-<!-- BONUS POINTS -->
-## Bonus points
+*Return:*
+```
+- SUCCESS: Access Token
+- ERROR: Unauthorized Access.
+```
 
-#### For bonus points:
+**GET /api/products**
 
-* Cache the response of the Product detail API. You are free to use any cache driver.
-* Use the Service layer and Repository design patterns.
-* Create automated tests for the app.
+Product Listing
 
-#### Answer the question below by updating this file.
+**GET /api/products/{id}**
 
-Q: The management requested a new feature where in the fictional e-commerce app must have a "featured products" section.
-How would you go about implementing this feature in the backend?
+Viewing of specific product.
 
-A: _Put your answer here_
+*Return:*
+```
+- ERROR: Product not found.
+```
+
+**POST /api/products**
+
+Create new product.
+
+*Params:*
+```
+name, description, price
+```
+
+*Return:*
+```
+- SUCCESS: Product created successfully.
+- ERROR: field_name required.
+- ERROR: name maximum length.
+- ERROR: price must be numeric.
+```
+
+**PUT /api/products/{id}**
+
+Update product.
+
+*Params:*
+```
+name, description, price
+```
+
+*Return:*
+```
+- SUCCESS: Product updated successfully.
+- ERROR: field_name required.
+- ERROR: name maximum length.
+- ERROR: price must be numeric.
+```
+
+**DELETE /api/products/{id}**
+
+Delete a product.
